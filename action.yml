@@ -1,0 +1,26 @@
+---
+name: markdownlint-cli
+author: Nick Osborn
+description: Style checker and lint tool for Markdown/CommonMark files.
+
+inputs:
+  config_file:
+    description: configuration file (JSON or YAML)
+    required: false
+  files:
+    description: files, directories, or globs
+    required: true
+  ignore_files:
+    description: files to ignore/exclude
+    required: false
+  rules:
+    description: custom rule files
+    required: false
+
+runs:
+  using: docker
+  image: Dockerfile
+
+branding:
+  icon: check-circle
+  color: purple

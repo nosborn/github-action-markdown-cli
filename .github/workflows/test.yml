@@ -1,0 +1,19 @@
+---
+name: test-local
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  push:
+    branches:
+      - master
+      - releases/*
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./
+        with:
+          files: README.md
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -1,5 +1,5 @@
 ---
-name: test-local
+name: local-test
 on:  # yamllint disable-line rule:truthy
   pull_request:
   push:

@@ -19,7 +19,7 @@ fi
 
 if [ "${GITHUB_EVENT_NAME}" = pull_request ]; then
   comment=""
-  FILES=$(echo "${OUTPUT}" | cut -d: -f1 | uniq)
+  FILES=$(echo "${OUTPUT}" | cut -d: -f1 | sort | uniq)
 
   for file in ${FILES}; do
     comment="${comment}<details><summary><code>${file}</code></summary>

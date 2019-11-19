@@ -1,11 +1,8 @@
 #!/bin/sh
 
 MARKDOWNLINT=markdownlint
-# shellcheck disable=SC2016
 MARKDOWNLINT="${MARKDOWNLINT}${INPUT_CONFIG_FILE:+ -c ${INPUT_CONFIG_FILE}}"
-# shellcheck disable=SC2016
 MARKDOWNLINT="${MARKDOWNLINT}${INPUT_IGNORE_FILES:+ -i ${INPUT_IGNORE_FILES}}"
-# shellcheck disable=SC2016
 MARKDOWNLINT="${MARKDOWNLINT}${INPUT_RULES:+ -r ${INPUT_RULES}}"
 
 # shellcheck disable=SC2086

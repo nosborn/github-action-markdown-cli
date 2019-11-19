@@ -11,9 +11,9 @@ jobs:
       - uses: actions/checkout@v1
       - uses: ./
         with:
-          config_file: .markdownlint.yaml
+          config_file: .markdownlintrc
           files: .
           ignore_files: "examples/ignore/*"
-          rules: examples/rules/custom.json
+          rules: examples/rules/custom.js
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

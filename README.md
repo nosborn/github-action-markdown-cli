@@ -14,7 +14,7 @@ Basic usage with all options enabled:
           config_file: ".markdownlint.yaml"
           files: .
           ignore_files: "examples/ignore/*"
-          rules: "examples/rules/custom.json"
+          rules: "examples/rules/custom.js"
 
 ```
 

@@ -1,8 +1,9 @@
 ---
-name: local-test
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   pull_request:
   push:
+
+name: local-test
 
 jobs:
   test:
@@ -13,7 +14,7 @@ jobs:
         with:
           config_file: .markdownlintrc
           files: .
-          ignore_files: "examples/ignore/*"
+          ignore_files: examples/ignore/*
           rules: examples/rules/custom.js
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

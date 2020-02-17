@@ -16,6 +16,9 @@ inputs:
   rules:
     description: custom rule files
     required: false
+  fix:
+    description: enable auto fix
+    required: false
 
 runs:
   using: docker

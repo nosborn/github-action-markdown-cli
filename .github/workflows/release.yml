@@ -4,7 +4,7 @@ name: Release
 on:  # yamllint disable-line rule:truthy
   push:
     tags:
-      - v*
+      - v*.*.*
 
 concurrency: ci-release
 
@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
+      - uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

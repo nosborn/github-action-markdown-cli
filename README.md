@@ -1,6 +1,9 @@
-# github-action-markdownlint-cli
+# github-action-markdown-cli
 
 A GitHub Action that performs style checking and linting for Markdown/CommonMark files using [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli).
+
+[![CI Workflow Status](https://github.com/nosborn/github-action-markdown-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/nosborn/github-action-markdown-cli/actions/workflows/ci.yml)
+[![Release Workflow Status](https://github.com/nosborn/github-action-markdown-cli/actions/workflows/release.yml/badge.svg)](https://github.com/nosborn/github-action-markdown-cli/actions/workflows/release.yml)
 
 ## Usage
 

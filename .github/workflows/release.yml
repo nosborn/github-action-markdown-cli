@@ -1,21 +1,19 @@
 ---
+name: Release
+
 on:  # yamllint disable-line rule:truthy
   push:
     tags:
-      - "v*"
+      - v*
 
-name: Create Release
+concurrency: ci-release
 
 jobs:
-  build:
-    name: Create Release
+  create-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2.3.4
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}

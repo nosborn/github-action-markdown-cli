@@ -13,6 +13,9 @@ inputs:
   ignore_files:
     description: files to ignore/exclude
     required: false
+  ignore_path:
+    description: path to file with ignore pattern(s)
+    required: false
   rules:
     description: custom rule files
     required: false

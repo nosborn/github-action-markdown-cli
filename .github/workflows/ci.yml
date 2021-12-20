@@ -34,3 +34,11 @@ jobs:
           rules: examples/rules/custom.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./
+        with:
+          config_file: .markdownlintrc
+          files: .
+          ignore_path: examples/.markdownlintignore
+          rules: examples/rules/custom.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

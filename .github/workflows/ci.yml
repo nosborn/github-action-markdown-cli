@@ -26,7 +26,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: ./
+      - name: Test problem matcher
+        id: expect-failure
+        uses: ./
+        with:
+          config_file: .markdownlintrc
+          files: .
+          rules: examples/rules/custom.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+      - if: ${{ steps.expect-failure.outcome != 'failure' }}
+        run: |
+          exit 1
+      - name: Test ignore_files
+        uses: ./
         with:
           config_file: .markdownlintrc
           files: .
@@ -34,7 +48,8 @@ jobs:
           rules: examples/rules/custom.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ./
+      - name: Test ignore_path
+        uses: ./
         with:
           config_file: .markdownlintrc
           files: .

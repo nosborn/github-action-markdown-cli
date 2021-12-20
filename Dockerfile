@@ -1,8 +1,7 @@
 FROM node:lts-alpine
 
-# hadolint ignore=DL3018
-RUN npm install --global --production markdownlint-cli@0.30.0 \
-  && apk --update --no-cache add curl jq
+RUN npm install --global --production --update-notifier=false markdownlint-cli@0.30.0
 
 COPY entrypoint.sh /entrypoint.sh
+COPY markdownlint-problem-matcher.json /markdownlint-problem-matcher.json
 ENTRYPOINT ["/entrypoint.sh"]

@@ -15,9 +15,10 @@ Basic usage with all options enabled:
         uses: nosborn/github-action-markdown-cli@v2.0.0
         with:
           files: .
-          config_file: ".markdownlint.yaml"
-          ignore_files: "examples/ignore/*"
-          rules: "examples/rules/custom.js"
+          config_file: .markdownlint.yaml
+          ignore_files: examples/ignore/*
+          ignore_path: examples/.markdownlintignore
+          rules: examples/rules/custom.js
 
 ```
 
@@ -26,6 +27,7 @@ Basic usage with all options enabled:
 * `files` - what to process (files, directories, globs)
 * `config_file` (optional) - configuration file (JSON or YAML)
 * `ignore_files` (optional) - files to ignore/exclude (file, directory, glob)
+* `ignore_path` (optional) - path to file with ignore pattern(s)
 * `rules` (optional) - custom rule files (file, directory, glob, package)
 
 ## License

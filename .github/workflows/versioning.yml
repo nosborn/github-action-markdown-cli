@@ -3,7 +3,7 @@ name: Tag Versioning
 
 on:
   release:
-    types: 
+    types:
       - published
       - edited
 

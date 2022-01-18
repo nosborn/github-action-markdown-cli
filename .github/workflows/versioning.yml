@@ -1,7 +1,7 @@
 ---
 name: Tag Versioning
 
-on:
+on:  # yamllint disable-line rule:truthy
   release:
     types:
       - published

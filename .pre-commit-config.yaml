@@ -22,11 +22,6 @@ repos:
       - id: trailing-whitespace
         exclude: examples/ignore/example-ignore.md
 
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: v7.5.0
-    hooks:
-      - id: gitleaks
-
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.26.3
     hooks:

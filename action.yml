@@ -14,9 +14,13 @@ inputs:
   files:
     description: files, directories, or globs
     required: true
+  ignore:
+    description: files to ignore/exclude
+    required: false
   ignore_files:
     description: files to ignore/exclude
     required: false
+    deprecationMessage: Please use 'ignore' instead.
   ignore_path:
     description: path to file with ignore pattern(s)
     required: false

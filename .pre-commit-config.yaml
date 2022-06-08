@@ -27,7 +27,7 @@ repos:
     hooks:
       - id: yamllint
         args:
-          - --config-file=.yaml-lint.yml
+          - --config-file=.yamllint
           - --strict
 
   - repo: https://github.com/rhysd/actionlint

@@ -12,7 +12,6 @@ rules:
     present: false
   indentation:
     spaces: 2
-    indent-sequences: true
   line-length:
     allow-non-breakable-words: true
     allow-non-breakable-inline-mappings: true
@@ -21,3 +20,5 @@ rules:
   quoted-strings:
     quote-type: double
     required: only-when-needed
+  truthy:
+    check-keys: false

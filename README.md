@@ -10,25 +10,29 @@ A GitHub Action that performs style checking and linting for Markdown/CommonMark
 Basic usage with all options enabled:
 
 ```yaml
-
-      - name: markdownlint-cli
-        uses: nosborn/github-action-markdown-cli@v3.0.1
-        with:
-          files: .
-          config_file: .markdownlint.yaml
-          ignore_files: examples/ignore/*
-          ignore_path: examples/.markdownlintignore
-          rules: examples/rules/custom.js
-
+- name: markdownlint-cli
+  uses: nosborn/github-action-markdown-cli@v3.0.1
+  with:
+    files: .
+    config: .markdownlint.yaml
+    ignore_files: examples/ignore/*
+    ignore_path: examples/.markdownlintignore
+    rules: examples/rules/custom.js
 ```
 
 ## Inputs
 
-* `files` - what to process (files, directories, globs)
-* `config_file` (optional) - configuration file (JSON or YAML)
-* `ignore_files` (optional) - files to ignore/exclude (file, directory, glob)
-* `ignore_path` (optional) - path to file with ignore pattern(s)
-* `rules` (optional) - custom rule files (file, directory, glob, package)
+- `files` - what to process (files, directories, globs)
+- `config` (optional) - configuration file (JSON or YAML)
+- `ignore_files` (optional) - files to ignore/exclude (file, directory, glob)
+- `ignore_path` (optional) - path to file with ignore pattern(s)
+- `rules` (optional) - custom rule files (file, directory, glob, package)
+
+### Deprecated inputs
+
+These inputs are still available but will be removed in a future major version.
+
+- `config_file` (optional) - configuration file (JSON or YAML) - superseded by `config`
 
 ## License
 

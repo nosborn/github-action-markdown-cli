@@ -4,9 +4,13 @@ author: Nick Osborn
 description: Style checker and lint tool for Markdown/CommonMark files.
 
 inputs:
+  config:
+    description: configuration file (JSON or YAML)
+    required: false
   config_file:
     description: configuration file (JSON or YAML)
     required: false
+    deprecationMessage: Please use 'config' instead.
   files:
     description: files, directories, or globs
     required: true

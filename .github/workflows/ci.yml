@@ -32,7 +32,7 @@ jobs:
         id: expect-failure
         uses: ./
         with:
-          config_file: .markdownlintrc
+          config: .markdownlintrc
           files: .
           rules: examples/rules/custom.js
         continue-on-error: true
@@ -42,14 +42,14 @@ jobs:
       - name: Test ignore_files
         uses: ./
         with:
-          config_file: .markdownlintrc
+          config: .markdownlintrc
           files: .
           ignore_files: examples/ignore/*
           rules: examples/rules/custom.js
       - name: Test ignore_path
         uses: ./
         with:
-          config_file: .markdownlintrc
+          config: .markdownlintrc
           files: .
           ignore_path: examples/.markdownlintignore
           rules: examples/rules/custom.js

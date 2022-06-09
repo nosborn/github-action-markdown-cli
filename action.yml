@@ -11,6 +11,11 @@ inputs:
     description: configuration file (JSON or YAML)
     required: false
     deprecationMessage: Please use 'config' instead.
+  dot:
+    description: >
+      if 'true', include files/folders with a dot (for example '.github')
+    required: false
+    default: false
   files:
     description: files, directories, or globs
     required: true

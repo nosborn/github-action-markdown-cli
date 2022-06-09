@@ -15,6 +15,7 @@ Basic usage with all options enabled:
   with:
     files: .
     config: .markdownlint.yaml
+    dot: true
     ignore: examples/ignore/*
     ignore_path: examples/.markdownlintignore
     rules: examples/rules/custom.js
@@ -24,6 +25,7 @@ Basic usage with all options enabled:
 
 - `files` - what to process (files, directories, globs)
 - `config` (optional) - configuration file (JSON or YAML)
+- `dot` (optional) - if `true`, include files/folders with a dot (for example `.github`)
 - `ignore` (optional) - files to ignore/exclude (file, directory, glob)
 - `ignore_path` (optional) - path to file with ignore pattern(s)
 - `rules` (optional) - custom rule files (file, directory, glob, package)

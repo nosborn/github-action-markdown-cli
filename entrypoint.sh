@@ -1,5 +1,8 @@
 #!/bin/sh
 
+set -o errexit
+set -o nounset
+
 : "${INPUT_CONFIG:=${INPUT_CONFIG_FILE:-}}"
 : "${INPUT_IGNORE:=${INPUT_IGNORE_FILES:-}}"
 
@@ -9,15 +12,15 @@ MARKDOWNLINT="${MARKDOWNLINT}${INPUT_IGNORE:+ -i ${INPUT_IGNORE}}"
 MARKDOWNLINT="${MARKDOWNLINT}${INPUT_IGNORE_PATH:+ -p ${INPUT_IGNORE_PATH}}"
 MARKDOWNLINT="${MARKDOWNLINT}${INPUT_RULES:+ -r ${INPUT_RULES}}"
 
-PROBLEM_MATCHER="$(mktemp -p "${GITHUB_WORKSPACE}")"
+PROBLEM_MATCHER="$(mktemp -p "${GITHUB_WORKSPACE:?}")"
 trap 'rm -f "${PROBLEM_MATCHER}"' EXIT
-cp /markdownlint-problem-matcher.json "${PROBLEM_MATCHER:?}" || exit
-echo "::add-matcher::${PROBLEM_MATCHER:?}"
+cp /markdownlint-problem-matcher.json "${PROBLEM_MATCHER}" || exit
+echo "::add-matcher::${PROBLEM_MATCHER}"
 
 # shellcheck disable=SC2086
-${MARKDOWNLINT} ${INPUT_FILES}
-readonly RC=$?
+${MARKDOWNLINT} ${INPUT_FILES:?} || readonly rc=$?
 
 echo '::remove-matcher owner=markdownlint::'
 
-exit ${RC}
+# shellcheck disable=SC2248
+exit ${rc:-}

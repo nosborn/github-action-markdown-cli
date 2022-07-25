@@ -20,7 +20,7 @@ repos:
         exclude: examples/ignore/example-ignore.md
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.26.3
+    rev: v1.27.1
     hooks:
       - id: yamllint
         args:
@@ -28,7 +28,7 @@ repos:
           - --strict
 
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.13
+    rev: v1.6.15
     hooks:
       - id: actionlint-docker
 

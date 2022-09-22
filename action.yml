@@ -4,15 +4,34 @@ author: Nick Osborn
 description: Style checker and lint tool for Markdown/CommonMark files.
 
 inputs:
+  config:
+    description: configuration file (JSON or YAML)
+    required: false
   config_file:
     description: configuration file (JSON or YAML)
+    required: false
+    deprecationMessage: Please use 'config' instead.
+  disable:
+    description: enable certain rules, for example 'MD013 MD041'
+    required: false
+  dot:
+    description: >
+      if 'true', include files/folders with a dot (for example '.github')
+    required: false
+    default: false
+  enable:
+    description: enable certain rules, for example 'MD013 MD041'
     required: false
   files:
     description: files, directories, or globs
     required: true
+  ignore:
+    description: files to ignore/exclude
+    required: false
   ignore_files:
     description: files to ignore/exclude
     required: false
+    deprecationMessage: Please use 'ignore' instead.
   ignore_path:
     description: path to file with ignore pattern(s)
     required: false

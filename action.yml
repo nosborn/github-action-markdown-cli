@@ -7,6 +7,9 @@ inputs:
   config_file:
     description: configuration file (JSON or YAML)
     required: false
+  dot:
+    description: include files/folders with a dot (for example `.github`)
+    required: false
   files:
     description: files, directories, or globs
     required: true

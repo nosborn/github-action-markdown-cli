@@ -28,7 +28,7 @@ repos:
           - --strict
 
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.19
+    rev: v1.6.20
     hooks:
       - id: actionlint-docker
 

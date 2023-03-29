@@ -8,6 +8,8 @@ rules:
   brackets:
     min-spaces-inside-empty: 0
     max-spaces-inside-empty: 0
+  comments:
+    min-spaces-from-content: 1 # agree with Prettier
   document-end:
     present: false
   indentation:

@@ -3,19 +3,6 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: Release tag (vX.Y.Z)
-        required: true
-      draft:
-        description: Dry run mode (true/false)
-        required: false
-        default: !!str true
-      prerelease:
-        description: Mark the release as a prerelease (true/false)
-        required: false
-        default: !!str true
   push:
     tags:
       - v*.*.*
@@ -37,58 +24,29 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - id: version_source
-        name: Determine version source
+      - name: Update embedded version numbers
         run: |
-          if [[ '${{ github.event_name }}' == workflow_dispatch ]]; then
-            echo 'release_tag=${{ github.event.inputs.tag }}' >>"${GITHUB_OUTPUT}"
-          else
-            echo "release_tag=${GITHUB_REF_NAME}" >>"${GITHUB_OUTPUT}"
+          sed -E -i "/uses:/s/v[0-9]+\\.[0-9]+\\.[0-9]+/${GITHUB_REF_NAME}/" README.md
+          jq --arg v "${GITHUB_REF_NAME#v}" '.version = $v' package.json >package.json.tmp && mv package.json.tmp package.json
+          if [[ -n "$(git diff --stat)" ]]; then
+            git config user.name '${{ github.actor }}'
+            git config user.email '${{ github.actor }}@users.noreply.github.com'
+            git add README.md package.json
+            git commit --message "Update version to ${GITHUB_REF_NAME}" || :
+            git push origin '${{ github.event.repository.default_branch }}'
+            git tag --force "${GITHUB_REF_NAME}" HEAD
+            git push origin "${GITHUB_REF_NAME}" --force
           fi
-
-      - id: extract_version
-        name: Extract version from tag
-        run: |
-          version='${{ steps.version_source.outputs.release_tag }}'
-          version="${version#v}"
-          major_version="${version%%.*}"
-          echo "version=${version}" >>"${GITHUB_OUTPUT}"
-          echo "major_version=${major_version}" >>"${GITHUB_OUTPUT}"
-
-      - name: Update README.md version string
-        run: |
-          sed -i -E "s@(uses: .*/github-action-markdown-cli@)v[0-9]+\.[0-9]+\.[0-9]+@\1v${{ steps.extract_version.outputs.version }}@" README.md
-
-      - name: Update package.json version field
-        run: |
-          jq --arg v '${{ steps.extract_version.outputs.version }}' '.version = $v' package.json >package.json.tmp &&
-            mv package.json.tmp package.json
-
-      - name: Commit files if changed
-        run: |
-          git config user.name '${{ github.actor }}'
-          git config user.email '${{ github.actor }}@users.noreply.github.com'
-          git add README.md package.json
-          git commit -m 'Update version to v${{ steps.extract_version.outputs.version }}' || echo 'No changes to commit'
-          git push origin '${{ github.event.repository.default_branch }}'
-
-      - if: github.event_name != 'workflow_dispatch' || github.event.inputs.draft != 'true'
-        name: Conditionally move version tag forward
-        run: |
-          git tag --force '${{ steps.version_source.outputs.release_tag }}' HEAD
-          git push origin '${{ steps.version_source.outputs.release_tag }}' --force
 
       - name: Create the release
         run: |
-          args=(--fail-on-no-commits --notes-from-tag) # TODO: --verify-tag
-          [[ '${{ github.event.inputs.draft }}' == true ]] && args+=(--draft)
-          [[ '${{ github.event.inputs.prerelease }}' == true ]] && args+=(--prerelease)
-          gh release create '${{ steps.version_source.outputs.release_tag }}' "${args[@]}"
+          gh release create "${GITHUB_REF_NAME}" --fail-on-no-commits --notes-from-tag --verify-tag \
+            --draft # FIXME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: github.event_name != 'workflow_dispatch' || github.event.inputs.draft != 'true'
-        name: Conditionally move major version tag
+      - if: false # FIXME
+        name: Move the major version tag
         run: |-
-          git tag --force 'v${{ steps.extract_version.outputs.major_version }}' "${GITHUB_SHA}"
-          git push origin 'v${{ steps.extract_version.outputs.major_version }}' --force
+          git tag --force "${GITHUB_REF_NAME%%.*}" "${GITHUB_REF_NAME}^{}"
+          git push origin "${GITHUB_REF_NAME%%.*}" --force

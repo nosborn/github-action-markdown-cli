@@ -32,7 +32,7 @@ jobs:
             printf '::error file=README.md,line=%d::version does not match tag\n' "${line}"
             rc=1
           fi
-          if [[ $(jq -r .version package.json) != "${GITHUB_REF_NAME}" ]]; then
+          if [[ $(jq -r .version package.json) != "${GITHUB_REF_NAME#v}" ]]; then
             line="$(grep -Fn '"version":' package.json | cut -d: -f1)"
             printf '::error file=package.json,line=%d::version does not match tag\n' "${line}"
             rc=1

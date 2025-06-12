@@ -13,7 +13,7 @@ cp /markdownlint-problem-matcher.json "${PROBLEM_MATCHER:?}" || exit
 echo "::add-matcher::${PROBLEM_MATCHER:?}"
 
 # shellcheck disable=SC2086
-${MARKDOWNLINT} ${INPUT_FILES:?}
+npx ${MARKDOWNLINT} ${INPUT_FILES:?}
 readonly RC=$?
 
 echo '::remove-matcher owner=markdownlint::'

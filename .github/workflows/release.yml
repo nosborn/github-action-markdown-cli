@@ -41,7 +41,7 @@ jobs:
 
       - name: Create the release
         run: |
-          gh release create "${GITHUB_REF_NAME}" --fail-on-no-commits --notes-from-tag --verify-tag \
+          gh release create "${GITHUB_REF_NAME}" --fail-on-no-commits --generate-notes --verify-tag \
             --draft # FIXME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 # yamllint disable rule:line-length
 ---
-name: Release TEST
+name: Release
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Clone the repository
-        uses: actions/checkout@2e5b7cfdf3b7c29bfa124b5f44ea66c2ba98d1a30eae32b2d6e74c23f44ef3d4 # v4.1.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - id: version_source
         name: Determine version source

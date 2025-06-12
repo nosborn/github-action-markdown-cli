@@ -32,8 +32,8 @@ jobs:
             git config user.name '${{ github.actor }}'
             git config user.email '${{ github.actor }}@users.noreply.github.com'
             git add README.md package.json
-            git commit --message "Update version to ${GITHUB_REF_NAME}" || :
-            git push origin '${{ github.event.repository.default_branch }}'
+            git commit --message "Bump version to ${GITHUB_REF_NAME}" || :
+            git push origin 'HEAD:${{ github.event.repository.default_branch }}'
             git tag --force "${GITHUB_REF_NAME}" HEAD
             git push origin "${GITHUB_REF_NAME}" --force
           fi

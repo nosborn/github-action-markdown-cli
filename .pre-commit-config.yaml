@@ -37,4 +37,4 @@ repos:
     hooks:
       - id: actionlint-docker
 
-minimum_pre_commit_version: !!str 3.2
+minimum_pre_commit_version: !!str 4.2

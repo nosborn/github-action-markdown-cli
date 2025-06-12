@@ -8,13 +8,15 @@ on:
       - v*.*.*
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: release
 
 jobs:
   create-release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Clone the repository

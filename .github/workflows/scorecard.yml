@@ -7,7 +7,7 @@ on:
     - cron: 18 2 * * 1
   push:
     branches:
-      - main
+      - master
   branch_protection_rule: {}
 
 permissions:

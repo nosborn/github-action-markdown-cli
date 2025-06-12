@@ -21,6 +21,7 @@ repos:
       - id: pretty-format-json
         args:
           - --autofix
+        exclude: package-lock.json
       - id: trailing-whitespace
         exclude: examples/ignore/example-ignore.md
 
@@ -36,5 +37,13 @@ repos:
     rev: v1.7.7
     hooks:
       - id: actionlint-docker
+
+  - repo: local
+    hooks:
+      - id: package-lock
+        name: package.json and package-lock.json are in step
+        entry: npm ci --omit=dev --silent
+        language: system
+        pass_filenames: false
 
 minimum_pre_commit_version: !!str 4.2

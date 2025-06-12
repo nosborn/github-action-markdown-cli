@@ -41,7 +41,11 @@ jobs:
 
       - name: Create the release
         run: |
-          gh release create "${GITHUB_REF_NAME}" --fail-on-no-commits --generate-notes --verify-tag \
-            --draft # FIXME
+          gh release create "${GITHUB_REF_NAME}" --fail-on-no-commits --generate-notes --verify-tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Move the major version tag
+        run: |-
+          git tag --force --message="Release ${GITHUB_REF_NAME%%.*}" "${GITHUB_REF_NAME%%.*}" "${GITHUB_REF_NAME}^{}"
+          git push --force origin "${GITHUB_REF_NAME%%.*}"

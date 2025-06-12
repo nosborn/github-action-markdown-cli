@@ -24,19 +24,20 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Update embedded version numbers
+      - name: Check embedded version numbers
         run: |
-          sed -E -i "/uses:/s/v[0-9]+\\.[0-9]+\\.[0-9]+/${GITHUB_REF_NAME}/" README.md
-          jq --arg v "${GITHUB_REF_NAME#v}" '.version = $v' package.json >package.json.tmp && mv package.json.tmp package.json
-          if [[ -n "$(git diff --stat)" ]]; then
-            git config user.name '${{ github.actor }}'
-            git config user.email '${{ github.actor }}@users.noreply.github.com'
-            git add README.md package.json
-            git commit --message "Bump version to ${GITHUB_REF_NAME}" || :
-            git push origin 'HEAD:${{ github.event.repository.default_branch }}'
-            git tag --force "${GITHUB_REF_NAME}" HEAD
-            git push origin "${GITHUB_REF_NAME}" --force
+          version="$(grep -F "uses: ${GITHUB.REPOSITORY}@" README.md | cut -d@ -f2)"
+          if [[ ${version} != "${GITHUB_REF_NAME}" ]]; then
+            line="$(grep -Fn "uses: ${GITHUB.REPOSITORY}@" README.md | cut -d: -f1)"
+            printf '::error file=README.md,line=%d::version does not match tag\n' "${line}"
+            rc=1
           fi
+          if [[ $(jq -r .version package.json) != "${GITHUB_REF_NAME}" ]]; then
+            line="$(grep -Fn '"version":' package.json | cut -d: -f1)"
+            printf '::error file=package.json,line=%d::version does not match tag\n' "${line}"
+            rc=1
+          fi
+          exit "${rc:-0}"
 
       - name: Create the release
         run: |
@@ -44,9 +45,3 @@ jobs:
             --draft # FIXME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - if: false # FIXME
-        name: Move the major version tag
-        run: |-
-          git tag --force "${GITHUB_REF_NAME%%.*}" "${GITHUB_REF_NAME}^{}"
-          git push origin "${GITHUB_REF_NAME%%.*}" --force

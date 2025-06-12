@@ -1,4 +1,7 @@
 # yamllint disable rule:line-length
+#
+# There are restrictions on this workflow:
+# https://github.com/ossf/scorecard-action#workflow-restrictions
 ---
 name: OpenSSF Scorecard
 
@@ -10,11 +13,8 @@ on:
       - master
   branch_protection_rule: {}
 
-permissions:
-  actions: read
+permissions: # no workflow-level write permissions allowed
   contents: read
-  id-token: write
-  security-events: write
 
 concurrency:
   group: scorecard
@@ -22,6 +22,11 @@ concurrency:
 
 jobs:
   analysis:
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      security-events: write
     if: github.event.repository.default_branch == github.ref_name || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:

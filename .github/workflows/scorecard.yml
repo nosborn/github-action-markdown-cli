@@ -11,6 +11,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
   branch_protection_rule: {}
 
 permissions: # no workflow-level write permissions allowed

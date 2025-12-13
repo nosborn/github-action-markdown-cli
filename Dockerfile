@@ -1,4 +1,4 @@
-FROM node:lts-alpine@sha256:2867d550cf9d8bb50059a0fff528741f11a84d985c732e60e19e8e75c7239c43
+FROM node:lts-alpine@sha256:7e0bd0460b26eb3854ea5b99b887a6a14d665d14cae694b78ae2936d14b2befb
 
 COPY package.json package-lock.json /
 RUN npm ci --omit=dev
